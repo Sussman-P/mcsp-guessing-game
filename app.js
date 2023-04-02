@@ -1,3 +1,6 @@
+//GLOBAL VARIABLES
+let gameOver = true;
+
 function randomInt(n) {
   // returns a random number multiplyed by what we input plus 1 so it starts from 1 to what we input
   return Math.floor(Math.random() * n) + 1;
@@ -28,21 +31,51 @@ function promptInt(message) {
   return number;
 }
 
+function playAgain() {
+  while (gameOver === true) {
+    var response = prompt(`Want to play again?`);
+
+    if (response == 'yes') {
+      play();
+    } else if (response == 'no') {
+      alert(`Goodbye!`);
+      break;
+    }
+
+    if (response === null) {
+      alert(`Goodbye`);
+      break;
+    }
+  }
+  return;
+}
+
 function play() {
   // calls the randomInt function to assign a random number between 1 and what we set.
   const secretNum = randomInt(20);
 
+  gameOver = false;
+
   // make sure to check if there is an input for USERNAME, if not, ask to retry.
   let userName = prompt('Welcome, please type your name: ');
 
+  if (userName === null) {
+    alert(`Goodbye loser!`);
+    gameOver = true;
+    return;
+  }
+
   //assign the user prompt to guess variable and stores as Int with PromptInt Func
-  let guess = promptInt(`Guess a number, ${userName}: `);
+  let guess = promptInt(
+    `Guess a number between 1 - 20, ${userName}: `
+  );
   // assignes guess users makes to guesses array variable.
   let guesses = [guess];
   // while the guess is not exactly met yet with secret number, this loop will constantly be runnning.
   while (guess !== secretNum) {
     if (guess === null) {
       alert(`Goodbye, ${userName}!`);
+      gameOver = true;
       return;
     }
     //Checks if users guess is less or greater than secret Number, if so prompt user respectivly
@@ -55,7 +88,12 @@ function play() {
     guesses.push(guess);
   }
   // when While loops exit, will alert User
-  alert(`Correct, ${userName}! Your previous attempts were: ${guesses}.`);
+  alert(
+    `Correct, ${userName}! Your previous attempts were: ${guesses}.`
+  );
+
+  gameOver = true;
+  playAgain();
 }
 
 // calling the function to start the logic.
