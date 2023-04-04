@@ -11,7 +11,7 @@ function play() {
     return;
   }
 
-  let number = Number(
+  let number = Number.parseInt(
     prompt(`enter a number between 1 - 20, ${playerName}.`)
   );
 
@@ -48,11 +48,13 @@ function play() {
   var finalCount = guess;
   console.log(`Player: ${playerName}, finalcount: ${finalCount}`);
   scoreBoard(playerName, finalCount);
-  playAgain();
+  playAgain(prevAttempt, randNum);
 }
-function playAgain() {
+function playAgain(previousAttempts, secretNum) {
   //variables inside other functions cannot be called within here...unless they are global
-  let response = prompt(`Correct! Want to play again?`);
+  let response = prompt(
+    `Correct, your attempts were ${previousAttempts}, the number was ${secretNum}, Want to play again? (YES or NO): `
+  );
 
   if (
     response.toLowerCase() === 'y' ||
