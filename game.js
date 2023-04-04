@@ -61,7 +61,7 @@ function scoreBoard(playerName, finalCount) {
     //Bob: 7, 2
     //the alert needs to state the difference
     let diffMore = finalCount - players[playerName]; //1
-    if (diffMor === 0) {
+    if (diffMore === 0) {
       console.log(`Score Board: ${JSON.stringify(players)}`);
       alert(`You tied your previous high score`);
     } else {
