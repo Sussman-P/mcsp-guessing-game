@@ -5,9 +5,16 @@ function play() {
   let playerName = prompt('Please enter your name:');
   console.log(`name: ${playerName}`);
 
-  let number = prompt(
-    `enter a number between 1 - 20, ${playerName}.`
+  if (playerName === null) {
+    alert(`Goodbye!`);
+    console.log('I Ran!');
+    return;
+  }
+
+  let number = Number(
+    prompt(`enter a number between 1 - 20, ${playerName}.`)
   );
+
   console.log(`number: ${number}`);
 
   let randNum = Math.floor(Math.random() * 20 + 1);
@@ -16,21 +23,25 @@ function play() {
   let guess = 0;
   let prevAttempt = [];
 
-  while (number != randNum) {
+  while (number !== randNum) {
     if (number > randNum) {
       console.log(`number: ${number}, Secret Number: ${randNum}`);
       prevAttempt.push(number);
       guess += 1;
       console.log(`Guess: ${guess}`);
       console.log(`previous guess: ${prevAttempt}`);
-      number = prompt(`Guess lower: ${playerName}`);
+      number = Number(prompt(`Guess lower: ${playerName}`));
     } else if (number < randNum) {
       console.log(`number: ${number} , Secret Number: ${randNum}`);
       prevAttempt.push(number);
       guess += 1;
       console.log(`guess: ${guess}: `);
       console.log(`previous attempt: ${prevAttempt}`);
-      number = prompt(`Guess higher ${playerName}: `);
+      number = Number(prompt(`Guess higher ${playerName}: `));
+    }
+
+    if (!Number.isInteger(number)) {
+      number = Number(prompt('please enter a valid number: '));
     }
   }
   guess++;
